@@ -9,3 +9,6 @@
 - Listen to a port
 - Write request handlers '/test', '/hello'
 - Install nodemon and update scripts inside package.json
+- What are dependencies
+- What is the use of "-g" while npm install
+- Difference between caret and tilde
