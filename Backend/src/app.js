@@ -2,35 +2,30 @@ const express = require("express");
 
 const app = express(); //Instance of express application, server
 
-// app.use("/route", rH1, rH2, [rH3, rH4], rH5)
+//We can not leave all these admin unauthenticated, we need to check if request is authrorized.
+//Use middleware logic to authorization
+app.use("/admin", (req, res, next) => {
+  //Every request route /admin will go through this middleware
+  console.log('auth middleware!')
+  const token = "abc";
+  const isAdminAuthorized = token === "abc";
+  if (!isAdminAuthorized) {
+    res.status(405).send("Not Authorized");
+  } 
+  else{
+    next();
+  }
+});
 
-app.use("/user", [
-  (req, res, next) => {
-    //Route handler
-    console.log("route handler 1");
-    next();
-  },
-  (req, res, next) => {
-    //Route handler 2
-    console.log("route handler 2");
-    next();
-  },
-  (req, res, next) => {
-    //Route handler
-    console.log("route handler 3");
-    next();
-  },
-  (req, res, next) => {
-    //Route handler
-    console.log("route handler 4");
-    next();
-  },
-  (req, res, next) => {
-    //Route handler
-    console.log("route handler 5");
-    res.send("Response5!");
-  },
-]);
+app.get("/admin/getAllData", (req, res) => {
+  //Route handler
+  res.send("All data sent!");
+});
+
+app.get("/admin/deleteUser", (req, res) => {
+  //Route handler
+  res.send("User deleted!");
+});
 
 app.listen(3001, () => {
   console.log("Server is running on port 3001", "http://localhost:3001");
