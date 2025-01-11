@@ -12,3 +12,10 @@
 - What are dependencies
 - What is the use of "-g" while npm install
 - Difference between caret and tilde
+- Play with ROutes and route extensions ex: /hello, /, /hello2, /xyz
+- Explore routing and use of ?, +, () , * in the routes
+- Use of regex in routes /a/, /.*fly$/
+- Reading the query params in the routes
+- Reading the dynamic routes
+- Play with route handlers - handling multiple routes
+- next() function and errors along with res.send()
