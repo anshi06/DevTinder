@@ -19,13 +19,17 @@ app.use("/admin", (req, res, next) => {
 
 app.get("/admin/getAllData", (req, res) => {
   //Route handler
+  throw new Error("dsfds");
   res.send("All data sent!");
 });
 
-app.get("/admin/deleteUser", (req, res) => {
-  //Route handler
-  res.send("User deleted!");
-});
+
+app.use("/", (err, req, res, next) => {
+  if(err){
+    console.log(err)
+    res.status(500).send("Something went wrong!")
+  }
+})
 
 app.listen(3001, () => {
   console.log("Server is running on port 3001", "http://localhost:3001");
