@@ -19,3 +19,7 @@
 - Reading the dynamic routes
 - Play with route handlers - handling multiple routes
 - next() function and errors along with res.send()
+- What is middleware? Why do we need it?
+- How Express JS basically handles requests behind the scenes?
+- Difference between app.use and app.all?
+- Error handling in using err in route handler or in middleware.
