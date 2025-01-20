@@ -28,3 +28,4 @@
 - Connect your application to the database <connection-url>/DevTinder
 - Call the connectDB function and connect to database before starting application on port.
 - Create a User schema.
+- Create /signup api to add user data in mongodb.
