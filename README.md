@@ -23,3 +23,8 @@
 - How Express JS basically handles requests behind the scenes?
 - Difference between app.use and app.all?
 - Error handling in using err in route handler or in middleware.
+- Create a cluster in mongoDb official website. >> MongoDB Atlas
+- Install mongoose library.
+- Connect your application to the database <connection-url>/DevTinder
+- Call the connectDB function and connect to database before starting application on port.
+- Create a User schema.
