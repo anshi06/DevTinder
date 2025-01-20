@@ -1,36 +1,30 @@
 const express = require("express");
+const connectDB = require("./config/database");
+const User = require("./models/user")
 
 const app = express(); //Instance of express application, server
 
-//We can not leave all these admin unauthenticated, we need to check if request is authrorized.
-//Use middleware logic to authorization
-app.use("/admin", (req, res, next) => {
-  //Every request route /admin will go through this middleware
-  console.log('auth middleware!')
-  const token = "abc";
-  const isAdminAuthorized = token === "abc";
-  if (!isAdminAuthorized) {
-    res.status(405).send("Not Authorized");
-  } 
-  else{
-    next();
-  }
+app.post("/signup", async (req, res) => {
+  //create instance of the user modal
+  const user = new User({
+    firstName: "Anshika",
+    lastName: "Upadhyay",
+    emailId: "ansh@123gmail.com",
+    password: "abc@123"
+  });
+
+  await user.save();
+
+  res.send("User added successfully!")
 });
 
-app.get("/admin/getAllData", (req, res) => {
-  //Route handler
-  throw new Error("dsfds");
-  res.send("All data sent!");
-});
-
-
-app.use("/", (err, req, res, next) => {
-  if(err){
-    console.log(err)
-    res.status(500).send("Something went wrong!")
-  }
-})
-
-app.listen(3001, () => {
-  console.log("Server is running on port 3001", "http://localhost:3001");
-});
+connectDB()
+  .then(() => {
+    console.log("Database connection established!");
+    app.listen(3001, () => {
+      console.log("Server is running on port 3001", "http://localhost:3001");
+    });
+  })
+  .catch((err) => {
+    console.err("Database can not be connected!", err);
+  });
