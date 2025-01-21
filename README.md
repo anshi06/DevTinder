@@ -32,3 +32,6 @@
 - Difference between JSON and JS Objects
 - Add the express.json() middleware.
 - Make your signup api dynamic api from the end user.
+- Make api /feed -> get all the users from the database.
+- Create a delete User API. -> '/user'
+- Update user data API. -> '/user'
