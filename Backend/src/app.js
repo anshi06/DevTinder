@@ -42,8 +42,12 @@ app.delete("/user", async (req, res) => {
 app.patch("/user", async (req, res) => {
   const userId = req.body.u_id;
   const data = req.body;
+  //data contains u_id, mongoDB only update the data which already exists in mongoDB and ingnore other fields which does not exist.
   try {
-    const user = await User.findByIdAndUpdate(userId, data);
+    const user = await User.findByIdAndUpdate(userId, data, {
+      returnDocument: "after",
+      runValidators: true,
+    });
     res.send("User update successfully!");
   } catch (err) {
     res.status(400).send("Something went wrong!", err);

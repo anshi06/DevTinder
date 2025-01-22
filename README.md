@@ -35,3 +35,4 @@
 - Make api /feed -> get all the users from the database.
 - Create a delete User API. -> '/user'
 - Update user data API. -> '/user'
+- Schema Validations
