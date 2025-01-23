@@ -35,3 +35,6 @@
 - Make api /feed -> get all the users from the database.
 - Create a delete User API. -> '/user'
 - Update user data API. -> '/user'
+- Schema Validations
+- Add API level validations on /signup api
+- Add API level validations on patch api
