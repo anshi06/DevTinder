@@ -1,19 +1,34 @@
 const express = require("express");
+const bcrypt = require("bcrypt");
 const connectDB = require("./config/database");
 const User = require("./models/user");
+const { validateSignUpData } = require("./utils/validation");
 
 const app = express(); //Instance of express application, server
 
 app.use(express.json()); //Middleware for parse incoming request with JSON payload.
 
 app.post("/signup", async (req, res) => {
-  //create instance of the user modal
-  const user = new User(req.body);
   try {
+    //Validation of Data
+    validateSignUpData(req);
+
+    //Encrypt your password
+    const { firstName, lastName, emailId, password } = req.body;
+    const passwordHash = await bcrypt.hash(password, 10); // 10 rounds of encyption and autogenerate a salt
+
+    const user = new User({
+      firstName,
+      lastName,
+      emailId,
+      password: passwordHash,
+    });
+
+    //create instance of the user modal
     await user.save();
     res.send("User added successfully!");
   } catch (err) {
-    res.status(500).send("Something went wrong!" + err);
+    res.status(400).send("ERROR:" + err);
   }
 });
 
