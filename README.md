@@ -40,3 +40,4 @@
 - Add API level validations on patch api
 - Add validator library and use it for email and password validations
 - Validate data in sign up api.
+- Login API.
