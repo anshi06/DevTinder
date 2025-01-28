@@ -1,12 +1,16 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
 const connectDB = require("./config/database");
+const jwt = require("jsonwebtoken");
 const User = require("./models/user");
 const { validateSignUpData } = require("./utils/validation");
 
 const app = express(); //Instance of express application, server
 
 app.use(express.json()); //Middleware for parse incoming request with JSON payload.
+
+app.use(cookieParser());
 
 app.post("/signup", async (req, res) => {
   try {
@@ -43,8 +47,15 @@ app.post("/login", async (req, res) => {
     }
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
-    if (isPasswordValid) res.send("User logged in successfully!");
-    else {
+    if (isPasswordValid) {
+      //Create a JWT Token
+      const token = await jwt.sign({ _id: user._id }, "DEV@tINDER");
+
+      //Add the token to cookie and send the response back to the User
+      res.cookie("token", token);
+      
+      res.send("User logged in successfully!");
+    } else {
       throw new Error("Invalid credentials!");
     }
   } catch (err) {
