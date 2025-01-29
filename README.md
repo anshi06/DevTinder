@@ -46,3 +46,4 @@
 - Cookies set and recieved.
 - Token expiry
 - userAuth Middleware.
+- Create schema method to getJWT()
