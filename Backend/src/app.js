@@ -5,6 +5,7 @@ const connectDB = require("./config/database");
 const jwt = require("jsonwebtoken");
 const User = require("./models/user");
 const { validateSignUpData } = require("./utils/validation");
+const { userAuth } = require("./middlewares/auth");
 
 const app = express(); //Instance of express application, server
 
@@ -49,11 +50,13 @@ app.post("/login", async (req, res) => {
 
     if (isPasswordValid) {
       //Create a JWT Token
-      const token = await jwt.sign({ _id: user._id }, "DEV@tINDER");
+      const token = await jwt.sign({ _id: user._id }, "DEV@tINDER", {
+        expiresIn: "1d",
+      });
 
       //Add the token to cookie and send the response back to the User
       res.cookie("token", token);
-      
+
       res.send("User logged in successfully!");
     } else {
       throw new Error("Invalid credentials!");
@@ -63,54 +66,11 @@ app.post("/login", async (req, res) => {
   }
 });
 
-//Feed API - get all the users from the database
-app.get("/feed", async (req, res) => {
+app.get("/profile", userAuth, async (req, res) => {
   try {
-    const users = await User.find({});
-    res.send(users);
+    res.send(req.user);
   } catch (err) {
     res.send(400).send("Something went wrong");
-  }
-});
-
-//Delete a user
-app.delete("/user", async (req, res) => {
-  const userId = req.body.id;
-  try {
-    const user = await User.findByIdAndDelete(userId);
-    res.send("User deleted successfully!");
-  } catch (err) {
-    res.status(400).send("Something went wrong!");
-  }
-});
-
-//Update the user
-app.patch("/user/:userId", async (req, res) => {
-  const userId = req.params?.userId;
-  const data = req.body;
-
-  try {
-    const ALLOWED_UPDATES = ["skills", "photoUrl", "about", "gender", "age"];
-
-    const isUpdateAllowed = Object.keys(data).every((k) =>
-      ALLOWED_UPDATES.includes(k)
-    );
-
-    if (!isUpdateAllowed) {
-      throw new Error("Update not allowed!");
-    }
-
-    if (data?.skills.length > 10) {
-      throw new Error("Skills can not be more than 10");
-    }
-
-    const user = await User.findByIdAndUpdate(userId, data, {
-      returnDocument: "after",
-      runValidators: true,
-    });
-    res.send("User update successfully!");
-  } catch (err) {
-    res.status(400).send("Something went wrong!", err);
   }
 });
 

@@ -44,3 +44,5 @@
 - Bcrypt for password store.
 - JWT Auth token create and verify.
 - Cookies set and recieved.
+- Token expiry
+- userAuth Middleware.
