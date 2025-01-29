@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema(
   {
@@ -50,6 +52,24 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+//Don't use Arrow function, this keyword don't work inside arrow function
+userSchema.methods.getJwt = async function () {
+  const user = this; //Represent the instance of the modal
+  //Create a JWT Token
+  const token = await jwt.sign({ _id: user._id }, "DEV@tINDER", {
+    expiresIn: "1d",
+  });
+
+  return token;
+};
+
+
+userSchema.methods.validatePassword = async function (password) {
+  const user = this;
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  return isPasswordValid;
+}
 
 const UserModal = mongoose.model("User", userSchema);
 

@@ -38,3 +38,12 @@
 - Schema Validations
 - Add API level validations on /signup api
 - Add API level validations on patch api
+- Add validator library and use it for email and password validations
+- Validate data in sign up api.
+- Login API.
+- Bcrypt for password store.
+- JWT Auth token create and verify.
+- Cookies set and recieved.
+- Token expiry
+- userAuth Middleware.
+- Create schema method to getJWT()
