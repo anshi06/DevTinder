@@ -49,4 +49,42 @@ router.post("/request/send/:status/:toUserId", userAuth, async (req, res) => {
   }
 });
 
+router.post(
+  "/request/review/:status/:requestId",
+  userAuth,
+  async (req, res) => {
+    try {
+      const loggedInUser = req.user;
+      const requestId = req.params.requestId;
+      const status = req.params.status;
+
+      const allowedStatus = ["accepted", "rejected"];
+      if (!allowedStatus.includes(status)) {
+        return res.status(400).json({ message: "Invalid status type." });
+      }
+
+      //Check for existing connection request.
+      const existingConnectionRequest = await ConnectionRequest.findOne({
+        _id: requestId,
+        toUserId: loggedInUser._id,
+        status: "interested",
+      });
+
+      if (!existingConnectionRequest) {
+        return res
+          .status(400)
+          .json({ message: "Connection request does not exist!" });
+      }
+
+      existingConnectionRequest.status = status;
+
+      const data = await existingConnectionRequest.save();
+
+      res.json({ message: `Connection request ${status} successfully!`, data });
+    } catch (err) {
+      res.status(400).send("ERROR:" + err.message);
+    }
+  }
+);
+
 module.exports = router;
