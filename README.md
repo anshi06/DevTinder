@@ -47,6 +47,10 @@
 - Token expiry
 - userAuth Middleware.
 - Create schema method to getJWT()
+- Read about indexes in mongoDB?
+- Why do we need index?
+- What is the advantages or disadvantages of creating indexes?
+- Logical queries
 
 ## API List
 # authRouter
