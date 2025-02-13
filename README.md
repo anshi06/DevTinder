@@ -73,3 +73,7 @@
 - GET /connections
 - GET /requests/received
 - GET /feed - Gets you the profiles for other users.
+
+## Frontend
+- Created a Vite + React Project & Remove unnecessary code.
+- For Design using Tailwind CSS.
