@@ -76,4 +76,5 @@
 
 ## Frontend
 - Created a Vite + React Project & Remove unnecessary code.
-- For Design using Tailwind CSS.
+- For Design using Tailwind CSS. https://v3.tailwindcss.com/docs/guides/vite
+- DaisyUI -> Compatilble with Tailwind, Components UI. (Gives us Tailwind CSS UI) https://daisyui.com/docs/install/
