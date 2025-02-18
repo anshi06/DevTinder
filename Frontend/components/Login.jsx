@@ -21,8 +21,7 @@ const Login = () => {
         },
         { withCredentials: true } //Pass the cookie in the api call
       );
-      console.log(res.data);
-      dispatch(addUser(res.data));
+      dispatch(addUser(res.data.data));
       navigate("/");
     } catch (err) {
       console.log(err);

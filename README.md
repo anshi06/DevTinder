@@ -96,4 +96,7 @@
 - Install Redux toolkit. (configure store, add provider in your app.js, create slice and export and add reducer to store)
 - Login and see if your data is coming properly.
 - Navbar should update as soon as user logs in.
-
+- You should not be able to access other routes without login.
+- If token is not present redirect user to login page.
+- Logout
+- Profile page
