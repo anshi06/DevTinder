@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const connectDB = require("./config/database");
 const authRouter = require("./routes/auth");
@@ -7,6 +8,13 @@ const requestsRouter = require("./routes/requests");
 const userRouter = require("./routes/user");
 
 const app = express(); //Instance of express application, server
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true, //Recieve the cookies and send the data
+  })
+);
 
 app.use(express.json()); //Middleware for parse incoming request with JSON payload.
 

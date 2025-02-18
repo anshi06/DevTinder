@@ -47,7 +47,7 @@ router.post("/login", async (req, res) => {
       //Add the token to cookie and send the response back to the User
       res.cookie("token", token);
 
-      res.send("User logged in successfully!");
+      res.json({ message: "User logged in successfully!", data: user });
     } else {
       throw new Error("Invalid credentials!");
     }
