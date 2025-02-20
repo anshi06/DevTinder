@@ -7,7 +7,8 @@ const userAuth = async (req, res, next) => {
     const { token } = req.cookies;
 
     if (!token) {
-      res.status(401).send("Please login!")
+      res.status(401).send("Please login!");
+      return;
     }
 
     //Validate the token
@@ -24,7 +25,7 @@ const userAuth = async (req, res, next) => {
     req.user = user;
     next();
   } catch (err) {
-    res.status(400).send("ERROR: ", err);
+    res.status(400).send(`${err}`);
   }
 };
 
