@@ -5,6 +5,8 @@ import Profile from "../components/Profile";
 import Login from "../components/Login";
 import appStore from "../utils/appStore";
 import Feed from "../components/Feed";
+import Connections from "../components/Connections";
+import Requests from "../components/Requests";
 
 function App() {
   const router = createBrowserRouter([
@@ -23,6 +25,14 @@ function App() {
         {
           path: "/profile",
           Component: Profile,
+        },
+        {
+          path: "/connections",
+          Component: Connections,
+        },
+        {
+          path: "/requests",
+          Component: Requests,
         },
       ],
     },

@@ -101,3 +101,9 @@
 - Logout
 - Get the feed and build the userCard.
 - Profile page
+- Connections page
+- Requests page - see all requests
+- Sign up flow.
+- Sent the connection requests.
+- Accept and reject the requests.
+- Testing all api's
