@@ -8,8 +8,8 @@ const EditProfile = ({ user }) => {
   if (!user) return null;
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
-  const [age, setAge] = useState(user.age);
-  const [gender, setGender] = useState(user.gender);
+  const [age, setAge] = useState(user.age || "");
+  const [gender, setGender] = useState(user.gender || "");
   const [about, setAbout] = useState(user.about);
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
   const [error, setError] = useState("");
