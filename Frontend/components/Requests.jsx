@@ -59,7 +59,7 @@ const Requests = () => {
           </thead>
           <tbody>
             {requests.map((request) => {
-              const { firstName, about, skills } = request.fromUserId;
+              const { firstName, about, skills, photoUrl } = request.fromUserId;
               return (
                 <tr>
                   <td>
@@ -67,7 +67,7 @@ const Requests = () => {
                       <div className="avatar">
                         <div className="mask mask-squircle h-12 w-12">
                           <img
-                            src={request.photoUrl}
+                            src={photoUrl}
                             alt="Avatar Tailwind CSS Component"
                           />
                         </div>
@@ -81,7 +81,7 @@ const Requests = () => {
                   <td>{skills.join(",")}</td>
                   <th>
                     <button
-                      className="btn btn-ghost btn-xs"
+                      className="btn btn-primary btn-xs"
                       onClick={() => reviewRequest("accepted", request._id)}
                     >
                       Accept
@@ -89,7 +89,7 @@ const Requests = () => {
                   </th>
                   <th>
                     <button
-                      className="btn btn-ghost btn-xs"
+                      className="btn btn-secondary btn-xs"
                       onClick={() => reviewRequest("rejected", request._id)}
                     >
                       Reject

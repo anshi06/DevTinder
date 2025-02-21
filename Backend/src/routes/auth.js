@@ -22,8 +22,11 @@ router.post("/signup", async (req, res) => {
     });
 
     //create instance of the user modal
-    await user.save();
-    res.send("User added successfully!");
+    const savedUser = await user.save();
+    const token = await savedUser.getJwt();
+    res.cookie("token", token);
+
+    res.send({ message: "User added successfully!", data: savedUser });
   } catch (err) {
     res.status(400).send("ERROR:" + err);
   }
@@ -36,7 +39,7 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ emailId: emailId });
 
     if (!user) {
-      throw new Error("Invalid credentials")
+      throw new Error("Invalid credentials");
     }
     const isPasswordValid = await user.validatePassword(password);
 
