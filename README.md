@@ -107,3 +107,25 @@
 - Sent the connection requests.
 - Accept and reject the requests.
 - Testing all api's
+
+## Deplyoment
+- Sign up on AWS
+- Launch instance
+- Modify the permission in pem file: chmod 400 <secret>.pem
+- Connect to your cloud machine using ssh command.
+- Install Nodejs: Download and install nvm: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+- Install the same node version which you're using on local system nvm install 23.3.0
+- Clone the project on the machine from github.
+    - npm install , Installs the dependencies
+    - Build the frontend project : npm run build & create a dist folder for your frontend (compiled code)
+    - sudo apt update
+    - sudo apt update install nginx
+    - sudo systemctl start nginx
+    - sudo systemctl enable nginx
+    - Copy code from dist folder to  /var/www/html/
+    - cd Frontend
+    - sudo scp ~r dist/* /var/www/html
+    - nginx host on port 80 and aws blocks all the ports, so enable port 80 of your instance.
+    - AWS Instance > Security > Inbound Rules ans edit inbound rules and give access.
+    - Now copy the public IP address from the instance and you load it, your frontend will load the application.
+
