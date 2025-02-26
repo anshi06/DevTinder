@@ -163,6 +163,14 @@
     - Change the base_url from frontend to /api.
     - Push the code git hub , take the pull and redeploy frontend again.
     - Now frontend and backend should work.
+- Adding custom Domain name
+    - Purchased domain name from goDaddy.
+    - Signup on cloudflare & Add a new domain name.
+    - Change the name servers on goDaddy and point it to cloudflare.
+    - Wait for sometime till your name servers are updated.
+    - Edit the domain name with your IP with dns record (A record The most basic type of DNS record, which maps a domain name to an IP address.).
+    - Now it's done , your IP is mapped to domain name.
+    - Enable SSL on clouflare on website. 
 
 
 
