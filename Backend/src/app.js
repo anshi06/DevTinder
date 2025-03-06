@@ -6,6 +6,7 @@ const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
 const requestsRouter = require("./routes/requests");
 const userRouter = require("./routes/user");
+require('dotenv').config()
 
 const app = express(); //Instance of express application, server
 
@@ -31,7 +32,7 @@ app.use("/", userRouter);
 connectDB()
   .then(() => {
     console.log("Database connection established!");
-    app.listen(3001, () => {
+    app.listen(process.env.PORT, () => {
       console.log("Server is running on port 3001", "http://localhost:3001");
     });
   })

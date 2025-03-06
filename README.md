@@ -170,7 +170,8 @@
     - Wait for sometime till your name servers are updated.
     - Edit the domain name with your IP with dns record (A record The most basic type of DNS record, which maps a domain name to an IP address.).
     - Now it's done , your IP is mapped to domain name.
-    - Enable SSL on clouflare on website. 
+    - Enable SSL on clouflare on website.
+- Keeping Our Credentials Safe using .env file. 
 
 
 

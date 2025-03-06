@@ -57,7 +57,7 @@ const userSchema = new mongoose.Schema(
 userSchema.methods.getJwt = async function () {
   const user = this; //Represent the instance of the modal
   //Create a JWT Token
-  const token = await jwt.sign({ _id: user._id }, "DEV@tINDER", {
+  const token = await jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
     expiresIn: "1d",
   });
 
