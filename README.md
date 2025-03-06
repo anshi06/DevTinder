@@ -107,3 +107,71 @@
 - Sent the connection requests.
 - Accept and reject the requests.
 - Testing all api's
+
+## Deplyoment
+- Sign up on AWS
+- Launch instance
+- Modify the permission in pem file: chmod 400 <secret>.pem
+- Connect to your cloud machine using ssh command.
+- Install Nodejs: Download and install nvm: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+- Install the same node version which you're using on local system nvm install 23.3.0
+- Clone the project on the machine from github.
+- Frontend Deplyoment
+    - npm install , Installs the dependencies
+    - Build the frontend project : npm run build & create a dist folder for your frontend (compiled code)
+    - sudo apt update
+    - sudo apt update install nginx
+    - sudo systemctl start nginx
+    - sudo systemctl enable nginx
+    - Copy code from dist folder to  /var/www/html/
+    - cd Frontend
+    - sudo scp ~r dist/* /var/www/html
+    - nginx host on port 80 and aws blocks all the ports, so enable port 80 of your instance.
+    - AWS Instance > Security > Inbound Rules ans edit inbound rules and give access.
+    - Now copy the public IP address from the instance and you load it, your frontend will load the application.
+- Backend Deplyoment
+    - Update DB password if required.
+    - Allowed ec2 instance public IP on mongoDB server.
+    - Install PM2 npm install pm2 ~g
+    - pm2 start npm -- start //Start the process
+    - pm2 logs -> To check the logs
+    - pm2 flush npm -> Remove the logs (npm is the name of application)
+    - pm2 stop npm -> Stop the application/process.
+    - pm2 delete npm -> Delete the process
+    - pm2 list
+    - pm2 start npm  --name “backend” -- start // Start application behind the schenes with name backend.
+    - Config ngnix: 
+            server {
+            listen 80;
+
+            server_name yourdomain.com;
+
+            location /api/ {
+                proxy_pass http://localhost:3001/;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+
+                # WebSockets support (if needed)
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+            }
+        }
+    - Now /api path should work.
+    - Change the base_url from frontend to /api.
+    - Push the code git hub , take the pull and redeploy frontend again.
+    - Now frontend and backend should work.
+- Adding custom Domain name
+    - Purchased domain name from goDaddy.
+    - Signup on cloudflare & Add a new domain name.
+    - Change the name servers on goDaddy and point it to cloudflare.
+    - Wait for sometime till your name servers are updated.
+    - Edit the domain name with your IP with dns record (A record The most basic type of DNS record, which maps a domain name to an IP address.).
+    - Now it's done , your IP is mapped to domain name.
+    - Enable SSL on clouflare on website.
+- Keeping Our Credentials Safe using .env file. 
+
+
+
