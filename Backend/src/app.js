@@ -7,6 +7,7 @@ const profileRouter = require("./routes/profile");
 const requestsRouter = require("./routes/requests");
 const userRouter = require("./routes/user");
 require('dotenv').config()
+require("./utils/cron")
 
 const app = express(); //Instance of express application, server
 
