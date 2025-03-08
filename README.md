@@ -171,7 +171,20 @@
     - Edit the domain name with your IP with dns record (A record The most basic type of DNS record, which maps a domain name to an IP address.).
     - Now it's done , your IP is mapped to domain name.
     - Enable SSL on clouflare on website.
-- Keeping Our Credentials Safe using .env file. 
+- Keeping Our Credentials Safe using .env file.
+- Razorpay Payment gateway integration.
+    - Signup on the Razorpay and complete KYC.
+    - We will get the access of razorpay dashboard.
+    - Go to the test mode.
+    - Create UI for premium page.
+    - Create /createOrder API on backend.
+    - Added razzorpay and secret in env file.
+    - Initialize razorpay.
+    - Creating order on razorpay.
+    - Created payment schema.
+    - Saved the order in payment collection.
+    - Make the API dynamic
+    - Set up Razorpay webhook.
 
 
 
