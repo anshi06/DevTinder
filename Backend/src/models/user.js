@@ -49,6 +49,8 @@ const userSchema = new mongoose.Schema(
     },
     about: { type: String, default: "This is the default description" },
     skills: { type: [String] },
+    membershipType: { type: String },
+    isPremium: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
@@ -64,12 +66,11 @@ userSchema.methods.getJwt = async function () {
   return token;
 };
 
-
 userSchema.methods.validatePassword = async function (password) {
   const user = this;
   const isPasswordValid = await bcrypt.compare(password, user.password);
   return isPasswordValid;
-}
+};
 
 const UserModal = mongoose.model("User", userSchema);
 
