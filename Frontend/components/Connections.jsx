@@ -3,6 +3,7 @@ import { BASE_URL } from "../utils/constants";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
+import { Link } from "react-router";
 
 const Connections = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,9 @@ const Connections = () => {
 
   if (!connections) return;
   if (connections.length === 0)
-    return <h1 className="text-xl font-bold text-center">No connections found.</h1>;
+    return (
+      <h1 className="text-xl font-bold text-center">No connections found.</h1>
+    );
 
   return (
     <div className="my-10">
@@ -36,13 +39,12 @@ const Connections = () => {
             <tr>
               <th>Name</th>
               <th>About</th>
-              <th>Skills</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             {connections.map((connection) => (
-              <tr>
+              <tr key={connection._id}>
                 <td>
                   <div className="flex items-center gap-3">
                     <div className="avatar">
@@ -59,7 +61,11 @@ const Connections = () => {
                   </div>
                 </td>
                 <td>{connection.about}</td>
-                <td>{connection.skills.join(",")}</td>
+                <th>
+                  <Link to={"/chat/" + connection._id}>
+                  <button className="btn btn-success btn-sm bg-blue-600">💬</button>
+                  </Link>
+                </th>
               </tr>
             ))}
           </tbody>

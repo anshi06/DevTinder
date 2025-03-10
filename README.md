@@ -185,6 +185,9 @@
     - Saved the order in payment collection.
     - Make the API dynamic
     - Set up Razorpay webhook.
+- Chat Feature (Real time communication | Websockets | Socket.io)
+    - Build the UI of chat window on /chat/:targetUserId
+    - Install socket.io
 
 
 

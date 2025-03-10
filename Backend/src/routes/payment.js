@@ -2,7 +2,7 @@ const express = require("express");
 const { userAuth } = require("../middlewares/auth");
 const rzpInstance = require("../utils/razorpay");
 const Payment = require("../models/payment");
-const User = require("../models/user")
+const User = require("../models/user");
 const {
   validateWebhookSignature,
 } = require("razorpay/dist/utils/razorpay-utils");
@@ -49,7 +49,7 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
   try {
     const iswebhookValid = validateWebhookSignature(
       JSON.stringify(webhookBody), //req.body
-      webhookSignature, //req.headers["X-Razorpay-Signature"]
+      webhookSignature, //req.get("X-Razorpay-Signature")
       webhookSecret //env file (when you set up webhook onrazorpay, that secret)
     );
 
@@ -67,7 +67,7 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
     payment.status = paymentDetails.status;
     await payment.save();
 
-    const user = await User.findOne({_id: paymentDetails.userId});
+    const user = await User.findOne({ _id: paymentDetails.userId });
     user.isPremium = true;
     user.membershipType = payment.notes.membershipType;
     await user.save();
@@ -80,6 +80,15 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
 
     return res.status(200).json({ msg: "Webhook received successfully!" });
   } catch (err) {}
+});
+
+paymentRouter.get("/premium/verify", userAuth, async (req, res) => {
+  const user = req.user.toJSON();
+  if (user.isPremium) {
+    return res.json({ isPremium: true });
+  } else {
+    return res.json({ isPremium: false });
+  }
 });
 
 module.exports = paymentRouter;
