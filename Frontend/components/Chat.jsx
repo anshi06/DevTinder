@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import { createSocketConnection } from "../utils/socket";
 import { useSelector } from "react-redux";
 const Chat = () => {
   const { targetUserId } = useParams();
+  const { targetFirstName, targetPhotoUrl } = useSearchParams();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const user = useSelector((store) => store.user);
-  const connections = useSelector((store) => store?.connections) || [];
-  const targetUser = connections.filter((c) => c._id === targetUserId)[0];
+  const targetUser = {
+    _id: targetUserId,
+    firstName: targetFirstName,
+    photoUrl: targetPhotoUrl,
+  };
   const userId = user?._id;
 
   useEffect(() => {
@@ -51,20 +55,28 @@ const Chat = () => {
   return (
     <>
       <div className="lg:w-1/2 mx-auto my-5 bg-gray-100 rounded-lg p-2">
-        {messages.length > 0 && messages.map((message, index) => (
-          <div className="chat chat-start" key={index}>
-            <div className="chat-image avatar">
-              <div className="w-10 rounded-full">
-                <img
-                  alt="Tailwind CSS chat bubble component"
-                  src={message?.photoUrl}
-                />
+        {messages.length > 0 &&
+          messages.map((message, index) => (
+            <div
+              className={`chat ${
+                targetUser?.firstName === message.firstName
+                  ? "chat-start"
+                  : "chat-end"
+              }`}
+              key={index}
+            >
+              <div className="chat-image avatar">
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS chat bubble component"
+                    src={message?.photoUrl}
+                  />
+                </div>
               </div>
+              <div className="chat-header">{message?.firstName}</div>
+              <div className="chat-bubble">{message?.text}</div>
             </div>
-            <div className="chat-header">{message?.firstName}</div>
-            <div className="chat-bubble">{message?.text}</div>
-          </div>
-        ))}
+          ))}
       </div>
       <div className=" join lg:w-1/2 mx-auto rounded-lg flex justify-between">
         <input
