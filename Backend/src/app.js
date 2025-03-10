@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const http = require("http");
 const cookieParser = require("cookie-parser");
 const connectDB = require("./config/database");
 const authRouter = require("./routes/auth");
@@ -7,8 +8,9 @@ const profileRouter = require("./routes/profile");
 const requestsRouter = require("./routes/requests");
 const userRouter = require("./routes/user");
 const paymentRouter = require("./routes/payment");
-require('dotenv').config()
-require("./utils/cron")
+const initializeSocket = require("./utils/socket");
+require("dotenv").config();
+require("./utils/cron");
 
 const app = express(); //Instance of express application, server
 
@@ -33,10 +35,13 @@ app.use("/", userRouter);
 
 app.use("/", paymentRouter);
 
+const server = http.createServer(app);
+initializeSocket(server);
+
 connectDB()
   .then(() => {
     console.log("Database connection established!");
-    app.listen(process.env.PORT, () => {
+    server.listen(process.env.PORT, () => {
       console.log("Server is running on port 3001", "http://localhost:3001");
     });
   })
