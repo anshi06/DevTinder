@@ -8,6 +8,7 @@ const profileRouter = require("./routes/profile");
 const requestsRouter = require("./routes/requests");
 const userRouter = require("./routes/user");
 const paymentRouter = require("./routes/payment");
+const chatRouter = require("./routes/chat");
 const initializeSocket = require("./utils/socket");
 require("dotenv").config();
 require("./utils/cron");
@@ -34,6 +35,8 @@ app.use("/", requestsRouter);
 app.use("/", userRouter);
 
 app.use("/", paymentRouter);
+
+app.use("/", chatRouter);
 
 const server = http.createServer(app);
 initializeSocket(server);

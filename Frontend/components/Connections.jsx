@@ -62,8 +62,15 @@ const Connections = () => {
                 </td>
                 <td>{connection.about}</td>
                 <th>
-                  <Link to={"/chat/" + connection._id}>
-                  <button className="btn btn-success btn-sm bg-blue-600">💬</button>
+                  <Link
+                    to={{
+                      pathname: "/chat/" + connection._id,
+                      search: "?targetFirstName=" + connection.firstName + "&targetPhotoUrl=" + connection.photoUrl,
+                    }}
+                  >
+                    <button className="btn btn-success btn-sm bg-blue-600">
+                      💬
+                    </button>
                   </Link>
                 </th>
               </tr>

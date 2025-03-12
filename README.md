@@ -188,6 +188,13 @@
 - Chat Feature (Real time communication | Websockets | Socket.io)
     - Build the UI of chat window on /chat/:targetUserId
     - Install socket.io
+    - Set up Frontend socket.io-client
+    - Intitialize the chat.
+    - create socket connection.
+    - Listen to events.
+    - Add auth in websockets (Can't send messages , who is not my friend-> targetUserId and userId must be friends)
+    - Build a feature show green symbol when online?- last seen feature
+
 
 
 
